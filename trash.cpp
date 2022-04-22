@@ -1,10 +1,16 @@
-#include<bits/stdc++.h>
-using namespace std;
- 
-int main()
-{
-   cout<<(1<<3)<<endl;
-   cout<<(1<<4)<<endl;
-
-    return 0;
+Input: grid = {
+  {1,1,1,1,0},
+  {1,1,0,1,0},
+  {1,1,0,0,0},
+  {0,0,0,0,0}
 }
+Output: 1
+Example 2:
+
+Input: grid = {
+  {1,1,0,0,0},
+  {1,1,0,0,0},
+  {0,0,1,0,0},
+  {0,0,0,1,1}
+}
+Output: 3

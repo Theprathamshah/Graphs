@@ -1,9 +1,7 @@
-
-
 import java.util.*;
 
-public class primsAlgo {
-    static class Edge {
+public class kruskalAlgo {
+    static class Edge implements Comparable<Edge> {
         int src;
         int nbr;
         int wt;
@@ -13,50 +11,39 @@ public class primsAlgo {
             this.nbr = nbr;
             this.wt = wt;
         }
-    }
 
-    public static class pair implements Comparable<pair> {
-        int src;
-        int wt;
-        int parent;
-        pair(int src,int parent,int wt)
-        {
-            this.src = src;
-            this.parent = parent;
-            this.wt = wt;
-        }
-        public int compareTo(pair p)
-        {
-            return this.wt-p.wt;
+        public int compareTo(Edge object) {
+            return this.wt - object.wt;
         }
     }
 
-    public static void primsAlgorithm(ArrayList<Edge>[]graph,int src)
-    {
+    public static void kruskalAlgorithmSolution(ArrayList<Edge>[] graph, int src) {
         int n = graph.length;
-        PriorityQueue<pair>pq = new PriorityQueue<>();
-        pq.add(new pair(src, -1, 0));
+        for (int i = 0; i < n; i++) {
+            Collections.sort(graph[i]);
+        }
         boolean []visited = new boolean[n];
-        while (pq.isEmpty()==false) {
-            pair rem = pq.remove();
+        Queue<Edge> q= new LinkedList<>();
+        q.add(new Edge(src, -1, 0));
+        while (q.isEmpty()==false) {
+            Edge rem =q.remove();
             if(visited[rem.src]==true)
             {
                 continue;
             }
-            visited[rem.src] = true;
-            if(rem.parent!=-1)
+            visited[rem.src]=true;
+            if(rem.nbr!=-1)
             {
-                System.out.println("To "+ rem.src + " via " + rem.parent + " @ " + rem.wt);
+                System.out.println("At " + rem.src + " via " + rem.nbr + " @ " + rem.wt);
             }
             for(Edge ele:graph[rem.src])
             {
                 if(visited[ele.nbr]==false)
                 {
-                    pq.add(new pair(ele.nbr,rem.src,ele.wt));
+                    q.add(new Edge(ele.nbr,rem.src,ele.wt));
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {
@@ -75,8 +62,9 @@ public class primsAlgo {
             graph[nbr].add(new Edge(nbr, src, wt));
         }
         int src = sc.nextInt();
-        System.out.println("Solution of prim's algorithm is given below");
-        primsAlgorithm(graph, src);
+        // int destination = sc.nextInt();
+        kruskalAlgorithmSolution(graph, src);
+
     }
 }
 /*
@@ -120,7 +108,8 @@ public class primsAlgo {
  /*abstract
 
 
- 7
+
+7
 8
 0 1 10
 0 3 40
@@ -128,8 +117,9 @@ public class primsAlgo {
 2 3 10
 3 4 2
 4 5 3
-4 6 8 --*
+4 6 8
 5 6 3
 0
+
 
 */
